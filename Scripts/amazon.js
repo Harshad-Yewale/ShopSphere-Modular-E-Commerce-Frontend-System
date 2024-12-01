@@ -1,4 +1,4 @@
-import { cart, addproduct} from "../data/cart.js";
+import { cart, addproduct, totalq} from "../data/cart.js";
 import { products } from "../data/products.js";
 import { moneyFormat } from "./utility/money.js";
 let htmllist = '';
@@ -56,16 +56,19 @@ products.forEach((product) => {
 })
 
 document.querySelector('.js-product-grid').innerHTML = htmllist;
-
+totalquantity();
 
 
 function totalquantity() {
-  let totalquantity = 0;
-  cart.forEach((cartItem) => {
-    totalquantity += cartItem.quantity;
-  })
+ let totalquantity=totalq();
+ if (totalquantity !=0) {
   document.querySelector('.js-cart-quantity')
-    .innerHTML = totalquantity;
+    .innerHTML =totalquantity;
+ }
+ else{
+  document.querySelector('.js-cart-quantity')
+    .innerHTML = '';
+ }
 }
 
 function addedmesssage(productId) {

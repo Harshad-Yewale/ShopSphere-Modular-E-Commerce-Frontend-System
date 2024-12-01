@@ -42,3 +42,11 @@ export function deleteProduct(productId){
   cart=newCart;
   savetocart();
 }
+
+export function totalq(){
+  let totalquantity=0;
+  cart.forEach(element => {
+    totalquantity+=Number(element.quantity);
+  });
+  return totalquantity;
+}

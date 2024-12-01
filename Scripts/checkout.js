@@ -1,4 +1,4 @@
-import { cart,deleteProduct } from "../data/cart.js";
+import { cart,deleteProduct,totalq } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { moneyFormat } from "./utility/money.js";
 
@@ -98,14 +98,23 @@ cart.forEach(cartItem => {
 document.querySelector('.js-order-summary')
   .innerHTML=checkoutsummery;
 
+  function totalquantity() {
+    let totalquantity=totalq();
+    document.querySelector('.js-checkout-header')
+     .innerHTML=`${totalquantity} items`;
+
+  }
+
 document.querySelectorAll('.js-delete-quantity')
  .forEach((link)=>{
+  totalquantity();
   link.addEventListener('click',()=>{
     let {productId}=link.dataset;
     deleteProduct(productId);
     console.log(cart);
     const deletedItem=document.querySelector(`.js-class-container-${productId}`);
     deletedItem.remove();
+    totalquantity();
   })
   
  })
