@@ -16,6 +16,18 @@ export let deliveryOptions=[
     priceCents:999
   }
 ]
+
+export function matchingdeliveryoption(optionId){
+  let matchingOption;
+  deliveryOptions.forEach(element => {
+    if (element.id===optionId) {
+      matchingOption=element;
+    }
+    
+    
+  });
+  return matchingOption;
+}
 export function calcdeliverydate(deliverydate){
     let date = dayjs();
     let deliveryDate = date.add(deliverydate.deliveryday, 'days');

@@ -1,19 +1,15 @@
 import { cart, deleteProduct, totalq, updatedeliveryOption } from "../../data/cart.js";
-import { products } from "../../data/products.js";
+import { products,matchingproducts} from "../../data/products.js";
 import { moneyFormat } from "../utility/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { calcdeliverydate, deliveryOptions } from "../../data/delivery.js";
+import { renderpayment } from "./paymentsummery.js";
 
  export function rendercheckout() {
   let checkoutsummery = ``;
   cart.forEach(cartItem => {
     const productId = cartItem.productId;
-    let matchingproduct;
-    products.forEach(product => {
-      if (productId === product.id) {
-        matchingproduct = product;
-      }
-    });
+    const matchingproduct=matchingproducts(productId);
 
     let deliveryheaddate;
     deliveryOptions.forEach((item) => {
@@ -104,9 +100,9 @@ import { calcdeliverydate, deliveryOptions } from "../../data/delivery.js";
     .forEach(element => {
       element.addEventListener('click', () => {
         const { productId, deliveryOptionId } = element.dataset;
-        console.log(deliveryOptionId);
         updatedeliveryOption(productId, deliveryOptionId);
         rendercheckout();
+        renderpayment();
       })
     })
 
@@ -127,7 +123,7 @@ import { calcdeliverydate, deliveryOptions } from "../../data/delivery.js";
         const deletedItem = document.querySelector(`.js-class-container-${productId}`);
         deletedItem.remove();
         totalquantity();
-
+        renderpayment();
       })
 
     })
