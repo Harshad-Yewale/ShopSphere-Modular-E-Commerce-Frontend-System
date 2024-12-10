@@ -1,10 +1,41 @@
+import { moneyFormat } from "../Scripts/utility/money.js";
+class Product{
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(product){
+    this.id=product.id;
+    this.image=product.image;
+    this.name=product.name;
+    this.rating=product.rating;
+    this.priceCents=product.priceCents;
+
+  }
+
+  ratingStars(){
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  ratingCount(){
+    return `${this.rating.count}`;
+  }
+
+  returnPrice(){
+    return `${moneyFormat(this.priceCents)}`;
+  }
+
+}
+
+
 export function matchingproducts(productId){
   let matchingproduct;
   products.forEach(product => {
     if (productId === product.id) {
       matchingproduct = product;
-      
-    }
+   }
   });
   return matchingproduct;
 }
@@ -668,4 +699,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((item)=>{
+  return new Product(item);
+});

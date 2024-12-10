@@ -1,6 +1,7 @@
-import { cart, addproduct, totalq } from "../data/cart.js";
+import { carts } from '../data/class-cart.js';
 import { products } from "../data/products.js";
 import { moneyFormat } from "./utility/money.js";
+
 let htmllist = '';
 products.forEach((product) => {
   htmllist += `
@@ -16,14 +17,14 @@ products.forEach((product) => {
 
           <div class="product-rating-container">
             <img class="product-rating-stars"
-              src="images/ratings/rating-${product.rating.stars * 10}.png">
+              src=${product.ratingStars()}>
             <div class="product-rating-count link-primary">
-              ${product.rating.count}
+              ${product.ratingCount()}
             </div>
           </div>
 
           <div class="product-price">
-            $${moneyFormat(product.priceCents)}
+            $${product.returnPrice()}
           </div>
 
           <div class="product-quantity-container ">
@@ -60,7 +61,7 @@ totalquantity();
 
 
 function totalquantity() {
-  let totalquantity = totalq();
+  let totalquantity =carts.totalq();
   if (totalquantity != 0) {
     document.querySelector('.js-cart-quantity')
       .innerHTML = totalquantity;
@@ -92,10 +93,10 @@ document.querySelectorAll('.js-add-to-cart')
   .forEach((button) => {
     button.addEventListener("click", () => {
       const { productId } = button.dataset;
-      addproduct(productId);
+      carts.addproduct(productId);
       totalquantity();
       addedmesssage(productId);
-      console.log(cart);
+      
     })
 
 

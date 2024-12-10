@@ -1,7 +1,7 @@
-import { cart, totalq } from "../../data/cart.js";
 import { matchingproducts } from "../../data/products.js";
 import { matchingdeliveryoption } from "../../data/delivery.js";
 import { moneyFormat } from "../utility/money.js";
+import { carts } from "../../data/class-cart.js";
 
 export function renderpayment(){
   let totalPriceCents=0;
@@ -9,7 +9,7 @@ export function renderpayment(){
   let totalcostBreforeTax=0;
   let tax=0;
   let totalcost=0;
-  cart.forEach(item=> {
+  carts.cartItem.forEach(item=> {
    const matchingproduct=matchingproducts(item.productId);
     totalPriceCents+=matchingproduct.priceCents*item.quantity;
    const shippingCost=matchingdeliveryoption(item.optionId);
@@ -19,9 +19,6 @@ export function renderpayment(){
 totalcostBreforeTax=totalPriceCents+totalShippingCost;
 tax=totalcostBreforeTax*0.1;
 totalcost=totalcostBreforeTax+tax;
-console.log(moneyFormat(totalcost));
-
-
 
 const summaryhtml=`
  <div class="payment-summary-title">
@@ -29,7 +26,7 @@ const summaryhtml=`
   </div>
 
   <div class="payment-summary-row">
-    <div>Items (${totalq()}):</div>
+    <div>Items (${carts.totalq()}):</div>
     <div class="payment-summary-money">$${moneyFormat(totalPriceCents)}</div>
   </div>
 

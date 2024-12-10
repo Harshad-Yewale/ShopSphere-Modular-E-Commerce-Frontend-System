@@ -1,13 +1,12 @@
-import { cart, deleteProduct, totalq, updatedeliveryOption } from "../../data/cart.js";
-import { products,matchingproducts} from "../../data/products.js";
+import { matchingproducts} from  "../../data/products.js";
 import { moneyFormat } from "../utility/money.js";
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { calcdeliverydate, deliveryOptions } from "../../data/delivery.js";
 import { renderpayment } from "./paymentsummery.js";
+import { carts } from "../../data/class-cart.js";
 
  export function rendercheckout() {
   let checkoutsummery = ``;
-  cart.forEach(cartItem => {
+  carts.cartItem.forEach(cartItem => {
     const productId = cartItem.productId;
     const matchingproduct=matchingproducts(productId);
 
@@ -34,7 +33,7 @@ import { renderpayment } from "./paymentsummery.js";
               ${matchingproduct.name}
             </div>
             <div class="product-price">
-              $${moneyFormat(matchingproduct.priceCents)}
+              $${matchingproduct.returnPrice()}
             </div>
             <div class="product-quantity">
               <span>
@@ -100,7 +99,7 @@ import { renderpayment } from "./paymentsummery.js";
     .forEach(element => {
       element.addEventListener('click', () => {
         const { productId, deliveryOptionId } = element.dataset;
-        updatedeliveryOption(productId, deliveryOptionId);
+        carts.updatedeliveryOption(productId, deliveryOptionId);
         rendercheckout();
         renderpayment();
       })
@@ -108,7 +107,7 @@ import { renderpayment } from "./paymentsummery.js";
 
 
   function totalquantity() {
-    let totalquantity = totalq();
+    let totalquantity = carts.totalq();
     document.querySelector('.js-checkout-header')
       .innerHTML = `${totalquantity} items`;
 
@@ -119,7 +118,7 @@ import { renderpayment } from "./paymentsummery.js";
       totalquantity();
       link.addEventListener('click', () => {
         let { productId } = link.dataset;
-        deleteProduct(productId);
+        carts.deleteProduct(productId);
         const deletedItem = document.querySelector(`.js-class-container-${productId}`);
         deletedItem.remove();
         totalquantity();
