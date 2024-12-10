@@ -31,12 +31,13 @@ export function loadCart(){
       }
     });
     if (sameProduct) {
-      // Number(document.querySelector(`.js-selected-quantity-${productId}`).value);
-      sameProduct.quantity +=1;
+      
+      sameProduct.quantity += 1;
     }
     else {
       cart.push({
         productId,
+       // Number(document.querySelector(`.js-selected-quantity-${productId}`).value),
         quantity: 1,
         optionId: '1'     
       })
