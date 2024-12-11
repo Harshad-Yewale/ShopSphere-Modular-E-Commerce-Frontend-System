@@ -158,3 +158,31 @@
   padding: 8px;
   border-radius: 50px;
 }
+
+.links{
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.anchor{
+  text-decoration: none ;
+  color: white;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.822);
+  padding: 2%;
+  padding-left: 4%;
+  padding-right: 4%;
+  border-radius: 12px;
+  text-transform: capitalize;
+  transition: all 0.2s;
+}
+.anchor:hover{
+  color: black;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.anchor:active{
+  transform: scale(0.98);
+}

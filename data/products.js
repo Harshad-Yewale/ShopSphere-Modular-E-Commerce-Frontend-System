@@ -1,4 +1,5 @@
 import { moneyFormat } from "../Scripts/utility/money.js";
+
 class Product{
   id;
   image;
@@ -25,6 +26,43 @@ class Product{
 
   returnPrice(){
     return `${moneyFormat(this.priceCents)}`;
+  }
+  extraHtml(){
+    return '';
+  }
+
+}
+
+class Clothing extends Product{
+   sizeChartLink;
+
+  constructor(product){
+    super(product);
+    this.sizeChartLink=product.sizeChartLink;
+  }
+
+  extraHtml(){
+    return `
+    <a class="anchor" href='${this.sizeChartLink} ' target='_blank'> shize chart </a>
+    `;
+  }
+}
+
+class Appliances extends Product{
+  appliancesWarranty;
+  appliancesInstructioins;
+
+  constructor(product){
+    super(product);
+    this.appliancesInstructioins=product.appliancesInstructioins;
+    this.appliancesWarranty=product.appliancesWarranty;
+  }
+
+  extraHtml(){
+    return `
+    <a class="anchor" href='${this.appliancesInstructioins}' target='_blank'>Instructions</a>
+    <a class="anchor" href='${this.appliancesWarranty}' target='_blank'>Warranty</a>
+    `
   }
 
 }
@@ -100,7 +138,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    appliancesInstructioins: "images/appliance-instructions.png",
+    appliancesWarranty:"images/appliance-warranty.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -144,7 +185,9 @@ export const products = [
       "hoodies",
       "sweaters",
       "apparel"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "77919bbe-0e56-475b-adde-4f24dfed3a04",
@@ -270,7 +313,9 @@ export const products = [
       "shorts",
       "apparel",
       "mens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "c2a82c5e-aff4-435f-9975-517cfaba2ece",
@@ -285,7 +330,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type: "appliances",
+    appliancesInstructioins: "images/appliance-instructions.png",
+    appliancesWarranty:"images/appliance-warranty.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -467,7 +515,9 @@ export const products = [
       "pants",
       "apparel",
       "mens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "1c079479-8586-494f-ab53-219325432536",
@@ -546,7 +596,9 @@ export const products = [
       "jogging",
       "apparel",
       "womens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   },
   {
     id: "d339adf3-e004-4c20-a120-40e8874c66cb",
@@ -590,7 +642,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    appliancesInstructioins: "images/appliance-instructions.png",
+    appliancesWarranty:"images/appliance-warranty.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -650,7 +705,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type: "appliances",
+    appliancesInstructioins: "images/appliance-instructions.png",
+    appliancesWarranty:"images/appliance-warranty.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -697,8 +755,16 @@ export const products = [
       "hoodies",
       "apparel",
       "mens"
-    ]
+    ],
+    type: "clothing",
+    sizeChartLink: "images/clothing-size-chart.png"
   }
 ].map((item)=>{
+  if (item.type==="clothing") {
+    return new Clothing(item);
+  }
+  if(item.type==='appliances'){
+    return new Appliances(item);
+  }
   return new Product(item);
 });
