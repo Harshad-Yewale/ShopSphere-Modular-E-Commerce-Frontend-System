@@ -1,8 +1,9 @@
-.amazon-header {
+.amazon-header{
   background-color: rgb(19, 25, 33);
   color: white;
   padding-left: 15px;
   padding-right: 15px;
+  text-decoration: none;
 
   display: flex;
   align-items: center;
@@ -31,6 +32,7 @@
   border-radius: 2px;
   cursor: pointer;
   text-decoration: none;
+  color: white;
   border: 1px solid rgba(0, 0, 0, 0);
 }
 
