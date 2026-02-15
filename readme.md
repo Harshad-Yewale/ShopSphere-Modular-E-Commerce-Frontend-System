@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>ShopSphere – Modular E-Commerce Frontend System</title>
 </head>
 <body>
 
